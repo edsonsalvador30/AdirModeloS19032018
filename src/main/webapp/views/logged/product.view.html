@@ -1,0 +1,752 @@
+<h3>Produto</h3>
+
+<!-- div row para pesquisa -->
+<!--<div class="row">-->
+
+
+<div data-component="crn-button" id="crn-button-564202" class="">
+    <button class="btn btn-primary" type="submit" onclick="" data-component="crn-button" ng-click="Product.startInserting()" ng-hide="Product.inserting || Product.editing"><i class="fa fa-user"></i> <span class="">{{"template.crud.new" | translate}}</span></button>
+</div>
+<!-- fim div row para pesquisa -->
+<!--</div>-->
+
+<datasource filter="" name="Product" entity="api/cronapi/crud/app.entity.Product" keys="id" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
+<div class="component-holder" data-component="crn-grid" id="crn-grid-Product">
+    <div crn-datasource="Product" class="" ng-hide="Product.editing || Product.inserting">
+        <table class="table  table-bordered table-hover table-striped">
+            <thead>
+            <tr class="table-header">
+                <th class="">
+                    <div class="">Nome</div>
+                </th>
+                <th class="">
+                    <div class="">Ativo</div>
+                </th>
+                <th class="">
+                    <div class="">Descrição</div>
+                </th>
+                <th class="">
+                    <div class="">Imagem</div>
+                </th>
+                <th class="">
+                    <div class="">Anexo</div>
+                </th>
+                <th class="">
+                    <div class="">Código de Barras</div>
+                </th>
+                <th class="">
+                    <div class="">Data de Criação</div>
+                </th>
+                <th class="">
+                    <div class="">Situação Produto</div>
+                </th>
+                <th class="">
+                    <div class="">Preço</div>
+                </th>
+                <th class="">
+                    <div class="">Preço de Custo</div>
+                </th>
+                <th class="">
+                    <div class="">Marca</div>
+                </th>
+                <th class="">
+                    <div class="">Categoria Produto</div>
+                </th>
+                <th class="">
+                    <div class="">{{"template.crud.actions" | translate}}</div>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table-content" ng-repeat="rowData in datasource.data">
+                <td class="">
+                    <div class="">
+                                {{rowData.name  }}
+                    </div>
+                </td>
+                <td class="">
+                    <div class="">
+                                {{rowData.active  }}
+                    </div>
+                </td>
+                <td class="">
+                    <div class="">
+                                {{rowData.description  }}
+                    </div>
+                </td>
+                <td class="">
+                    <div class="">
+                                <a ng-if="rowData.image" ng-click="datasource.openImage(rowData.image)">
+                                    <img data-ng-src="{{rowData.image.startsWith('http') || (rowData.image.startsWith('/') && rowData.image.length < 1000)? rowData.image : 'data:image/png;base64,' + rowData.image}}" style="max-height: 30px;">
+                                </a>
+                    </div>
+                </td>
+                <td class="">
+                    <div class="">
+                                    <button ng-if="rowData.attachment" class="btn btn-sm" ng-click="cronapi.internal.downloadFileEntity(datasource, 'attachment', $index)">
+                                        <span class="glyphicon glyphicon-download-alt"></span>
+                                    </button>
+                    </div>
+                </td>
+                <td class="">
+                    <div class="">
+                                {{rowData.barcode  }}
+                    </div>
+                </td>
+                <td class="">
+                    <div class="">
+                                {{rowData.addedDate | mask:'datetime'}}
+                    </div>
+                </td>
+                <td class="">
+                    <div class="">
+                            {{rowData.productStatus.name}}
+                    </div>
+                </td>
+                <td class="">
+                    <div class="">
+                                {{rowData.price  }}
+                    </div>
+                </td>
+                <td class="">
+                    <div class="">
+                                {{rowData.costPrice  }}
+                    </div>
+                </td>
+                <td class="">
+                    <div class="">
+                            {{rowData.brand.name}}
+                    </div>
+                </td>
+                <td class="">
+                    <div class="">
+                            {{rowData.productCategory.name}}
+                    </div>
+                </td>
+                <td class="">
+                    <div class="">
+                        <button class="btn btn-default btn-sm" data-component="crn-button" type="submit" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-default btn-sm" data-component="crn-button" type="submit" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="table-footer-controls">
+            <button class="btn btn-default btn-block btn-clicked" data-component="crn-button" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{"template.crud.load_more" | translate}}...</button>
+        </div>
+    </div>
+</div>
+<div data-component="crn-form" id="crn-form-form-Product">
+    <div class="form" ng-show="Product.editing || Product.inserting">
+        <form crn-datasource="Product" class="">
+            <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting">
+                <button class="btn btn-primary" data-component="crn-button" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
+                <button class="btn btn-success" data-component="crn-button" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
+                <button class="btn btn-primary" data-component="crn-button" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                <button class="btn btn-primary" data-component="crn-button" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                <button class="btn btn-primary" data-component="crn-button" ng-click="datasource.remove()"><i class="glyphicon glyphicon-trash"></i></button>
+            </div>
+            <div class="active-bar" ng-hide="!datasource.editing &amp;&amp; !datasource.inserting">
+                <button class="btn btn-success" data-component="crn-button" ng-click="datasource.post()"><i class="glyphicon glyphicon-ok"></i></button>
+                <button class="btn btn-danger" data-component="crn-button" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i></button>
+            </div>
+            <br/>
+            <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting">
+
+                <div data-component="crn-textinput" id="crn-textinput-name" class="">
+                    <div class="form-group">
+                        <label for="textinput-name" class="">Nome</label>
+ <!-- else for if !model.hasCronappFramework() -->
+                                <input
+                                            type="text"
+                                            ng-model="Product.active.name"
+                                            class="form-control"
+                                            id="textinput-name"
+                                            placeholder="Nome"
+                                            mask=""
+                                            mask-placeholder=""
+                                            ng-required="true">
+                         <!-- end if !model.hasCronappFramework() -->
+                    </div>
+                </div>
+
+                <div data-component="crn-textinput" id="crn-textinput-active" class="">
+                    <div class="form-group">
+                        <label for="textinput-active" class="">Ativo</label>
+ <!-- else for if !model.hasCronappFramework() -->
+                                <input
+                                            type="checkbox"
+                                            ng-model="Product.active.active"
+                                            class="form-control"
+                                            id="textinput-active"
+                                            placeholder="Ativo"
+                                            mask=""
+                                            mask-placeholder=""
+                                            ng-required="false">
+                         <!-- end if !model.hasCronappFramework() -->
+                    </div>
+                </div>
+
+                <div data-component="crn-textinput" id="crn-textinput-description" class="">
+                    <div class="form-group">
+                        <label for="textinput-description" class="">Descrição</label>
+ <!-- else for if !model.hasCronappFramework() -->
+                                <input
+                                            type="text"
+                                            ng-model="Product.active.description"
+                                            class="form-control"
+                                            id="textinput-description"
+                                            placeholder="Descrição"
+                                            mask=""
+                                            mask-placeholder=""
+                                            ng-required="true">
+                         <!-- end if !model.hasCronappFramework() -->
+                    </div>
+                </div>
+
+                <div data-component="crn-dynamic-image" id="crn-textinput-image" class="">
+                    <div class="form-group">
+                        <label for="textinput-image" class="">Imagem</label>
+ <!-- else for if !model.hasCronappFramework() -->
+                                <div dynamic-image ng-model="Product.active.image" max-file-size="5MB" class="dynamic-image-container" ng-required="false">
+                                  {{"template.crud.clickOrDragAnImage" | translate}} 
+                                </div>
+                         <!-- end if !model.hasCronappFramework() -->
+                    </div>
+                </div>
+
+                <div data-component="crn-dynamic-file" id="crn-textinput-attachment" class="">
+                    <div class="form-group">
+                        <label for="textinput-attachment" class="">Anexo</label>
+ <!-- else for if !model.hasCronappFramework() -->
+                                <div dynamic-file ng-model="Product.active.attachment" max-file-size="5MB" class="dynamic-image-container" ng-required="false">
+                                  {{"template.crud.clickOrDragAnFile" | translate}}
+                                </div>
+                         <!-- end if !model.hasCronappFramework() -->
+                    </div>
+                </div>
+
+                <div data-component="crn-textinput" id="crn-textinput-barcode" class="">
+                    <div class="form-group">
+                        <label for="textinput-barcode" class="">Código de Barras</label>
+ <!-- else for if !model.hasCronappFramework() -->
+                                <input
+                                            type="text"
+                                            ng-model="Product.active.barcode"
+                                            class="form-control"
+                                            id="textinput-barcode"
+                                            placeholder="Código de Barras"
+                                            mask=""
+                                            mask-placeholder=""
+                                            ng-required="false">
+                         <!-- end if !model.hasCronappFramework() -->
+                    </div>
+                </div>
+
+                <div data-component="crn-textinput" id="crn-textinput-addedDate" class="">
+                    <div class="form-group">
+                        <label for="textinput-addedDate" class="">Data de Criação</label>
+ <!-- else for if !model.hasCronappFramework() -->
+                                <input
+                                            type="datetime"
+                                            ng-model="Product.active.addedDate"
+                                            class="form-control"
+                                            id="textinput-addedDate"
+                                            placeholder="Data de Criação"
+                                            mask="DD/MM/YYYY HH:mm:ss"
+                                            mask-placeholder=""
+                                            ng-required="false">
+                         <!-- end if !model.hasCronappFramework() -->
+                    </div>
+                </div>
+                    <datasource name="Productstatus" entity="api/cronapi/crud/app.entity.ProductStatus" keys="id" class="" dependent-by="{{Product}}"></datasource>
+
+                <div data-component="crn-combobox-dynamic" id="crn-combobox-dynamic-productStatus" class="">
+                    <div class="form-group">
+                        <label for="combobox-dynamic-productStatus" class="">Situação Produto</label>
+ <!-- else for if !model.hasCronappFramework() -->
+                                <ui-select ng-model="Product.active.productStatus" crn-datasource="Productstatus" class="crn-select" id="combobox-dynamic-productStatus" ng-required="false" theme="bootstrap">
+                                    <ui-select-match class="" placeholder="Select...">
+                                        {{$select.selected.name}}
+                                    </ui-select-match>
+                                    <ui-select-choices  repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
+                                        <div class="" data-container="true">
+                                            {{rowData.name}}
+                                        </div>
+                                    </ui-select-choices>
+                                </ui-select>
+                         <!-- end if !model.hasCronappFramework() -->
+                    </div>
+                </div>
+
+                <div data-component="crn-textinput" id="crn-textinput-price" class="">
+                    <div class="form-group">
+                        <label for="textinput-price" class="">Preço</label>
+ <!-- else for if !model.hasCronappFramework() -->
+                                <input
+                                            type="number"
+                                            ng-model="Product.active.price"
+                                            class="form-control"
+                                            id="textinput-price"
+                                            placeholder="Preço"
+                                            mask=""
+                                            mask-placeholder=""
+                                            ng-required="true">
+                         <!-- end if !model.hasCronappFramework() -->
+                    </div>
+                </div>
+
+                <div data-component="crn-textinput" id="crn-textinput-costPrice" class="">
+                    <div class="form-group">
+                        <label for="textinput-costPrice" class="">Preço de Custo</label>
+ <!-- else for if !model.hasCronappFramework() -->
+                                <input
+                                            type="number"
+                                            ng-model="Product.active.costPrice"
+                                            class="form-control"
+                                            id="textinput-costPrice"
+                                            placeholder="Preço de Custo"
+                                            mask=""
+                                            mask-placeholder=""
+                                            ng-required="true">
+                         <!-- end if !model.hasCronappFramework() -->
+                    </div>
+                </div>
+                    <datasource name="Brand" entity="api/cronapi/crud/app.entity.Brand" keys="id" class="" dependent-by="{{Product}}"></datasource>
+
+                <div data-component="crn-combobox-dynamic" id="crn-combobox-dynamic-brand" class="">
+                    <div class="form-group">
+                        <label for="combobox-dynamic-brand" class="">Marca</label>
+ <!-- else for if !model.hasCronappFramework() -->
+                                <ui-select ng-model="Product.active.brand" crn-datasource="Brand" class="crn-select" id="combobox-dynamic-brand" ng-required="false" theme="bootstrap">
+                                    <ui-select-match class="" placeholder="Select...">
+                                        {{$select.selected.name}}
+                                    </ui-select-match>
+                                    <ui-select-choices  repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
+                                        <div class="" data-container="true">
+                                            {{rowData.name}}
+                                        </div>
+                                    </ui-select-choices>
+                                </ui-select>
+                         <!-- end if !model.hasCronappFramework() -->
+                    </div>
+                </div>
+                    <datasource name="Productcategory" entity="api/cronapi/crud/app.entity.ProductCategory" keys="id" class="" dependent-by="{{Product}}"></datasource>
+
+                <div data-component="crn-combobox-dynamic" id="crn-combobox-dynamic-productCategory" class="">
+                    <div class="form-group">
+                        <label for="combobox-dynamic-productCategory" class="">Categoria Produto</label>
+ <!-- else for if !model.hasCronappFramework() -->
+                                <ui-select ng-model="Product.active.productCategory" crn-datasource="Productcategory" class="crn-select" id="combobox-dynamic-productCategory" ng-required="false" theme="bootstrap">
+                                    <ui-select-match class="" placeholder="Select...">
+                                        {{$select.selected.name}}
+                                    </ui-select-match>
+                                    <ui-select-choices  repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
+                                        <div class="" data-container="true">
+                                            {{rowData.name}}
+                                        </div>
+                                    </ui-select-choices>
+                                </ui-select>
+                         <!-- end if !model.hasCronappFramework() -->
+                    </div>
+                </div>
+                <!-- NtoN  -->
+                <!-- NtoN  end-->
+            </fieldset>
+        </form>
+        <form>
+            <fieldset>
+                <!-- OneToN -->
+                <!--query filter 1toN -->
+                <!-- query filter 1toN end-->
+                <datasource filter="" name="StockItemGrid" enabled="{{Product.editing || Product.inserting}}" entity="api/cronapi/crud/app.entity.Product/{{Product.active.id}}/relation:product:StockItem" keys="id" rows-per-page="100" lazy="true" auto-post="true" dependent-lazy-post="Product" dependent-lazy-post-field="product"></datasource>
+                <div data-component="crn-button" class="">
+                    <button class="btn btn-primary" onclick="$('#modalStockItemGrid').modal('show');" data-component="crn-button" ng-click="StockItemGrid.startInserting();"><i class="fa fa-plus"></i> 
+						<span class="">{{"Add" | translate}} Item de Estoque</span> 
+					</button>
+                </div>
+                <!--search 1toN-->
+                <!-- seach 1toN end-->
+                <div data-component="crn-textinput" id="crn-textinput-descricao">
+                    <div class="form-group">
+                        <label for="textinput-descricao" class="">
+							Item de Estoque
+						</label>
+                        <div class="component-holder" data-component="crn-grid" id="crn-grid-StockItemGrid">
+                            <div crn-datasource="StockItemGrid">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                    <tr class="table-header">
+                                                <th class="">
+                                                    <div class="">
+                                                        Estoque
+                                                    </div>
+                                                </th>
+                                                <th class="">
+                                                    <div class="">
+                                                        Data de Criação
+                                                    </div>
+                                                </th>
+                                                <th class="">
+                                                    <div class="">
+                                                        Situação
+                                                    </div>
+                                                </th>
+                                                <th class="">
+                                                    <div class="">
+                                                        Quantidade
+                                                    </div>
+                                                </th>
+                                        <th class="">
+                                            <div class="">
+                                                {{"template.crud.actions" | translate}}
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="table-content" ng-repeat="rowData in datasource.data">
+                                                <td>
+                                                    <div>
+                                                            {{rowData.stock.name }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                            {{rowData.addedDate | mask:'DD/MM/YYYY HH:mm:ss'}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                            {{rowData.itemStatus.name }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                            {{rowData.quantity }}
+                                                    </div>
+                                                </td>
+                                        <td>
+                                            <div>
+                                                <button class="btn btn-default btn-sm" data-component="crn-button" ng-click="datasource.startEditing(rowData)" onclick="$('#modalStockItemGrid').modal('show');" ><i class="fa fa-edit"></i></button>
+                                                <button class="btn btn-default btn-sm" data-component="crn-button" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="table-footer-controls">
+                                    <button class="btn btn-default btn-block btn-clicked" data-component="crn-button" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()" content="{{&quot;template.crud.load_more&quot; | translate}}...">{{"template.crud.load_more" | translate}}...</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--query filter 1toN -->
+                <!-- query filter 1toN end-->
+                <datasource filter="" name="ProductCharacteristicValueGrid" enabled="{{Product.editing || Product.inserting}}" entity="api/cronapi/crud/app.entity.Product/{{Product.active.id}}/relation:product:ProductCharacteristicValue" keys="id" rows-per-page="100" lazy="true" auto-post="true" dependent-lazy-post="Product" dependent-lazy-post-field="product"></datasource>
+                <div data-component="crn-button" class="">
+                    <button class="btn btn-primary" onclick="$('#modalProductCharacteristicValueGrid').modal('show');" data-component="crn-button" ng-click="ProductCharacteristicValueGrid.startInserting();"><i class="fa fa-plus"></i> 
+						<span class="">{{"Add" | translate}} Valor Característico</span> 
+					</button>
+                </div>
+                <!--search 1toN-->
+                <!-- seach 1toN end-->
+                <div data-component="crn-textinput" id="crn-textinput-descricao">
+                    <div class="form-group">
+                        <label for="textinput-descricao" class="">
+							Valor Característico
+						</label>
+                        <div class="component-holder" data-component="crn-grid" id="crn-grid-ProductCharacteristicValueGrid">
+                            <div crn-datasource="ProductCharacteristicValueGrid">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                    <tr class="table-header">
+                                                <th class="">
+                                                    <div class="">
+                                                        Valor
+                                                    </div>
+                                                </th>
+                                                <th class="">
+                                                    <div class="">
+                                                        Ativo
+                                                    </div>
+                                                </th>
+                                                <th class="">
+                                                    <div class="">
+                                                        Descrição
+                                                    </div>
+                                                </th>
+                                                <th class="">
+                                                    <div class="">
+                                                        Anexo
+                                                    </div>
+                                                </th>
+                                                <th class="">
+                                                    <div class="">
+                                                        Característica
+                                                    </div>
+                                                </th>
+                                        <th class="">
+                                            <div class="">
+                                                {{"template.crud.actions" | translate}}
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="table-content" ng-repeat="rowData in datasource.data">
+                                                <td>
+                                                    <div>
+                                                            {{rowData.value }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                            {{rowData.active }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                            {{rowData.description }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                                <button ng-if="rowData.attachment" data-component="crn-button" class="btn btn-sm" ng-click="cronapi.internal.downloadFileEntity(datasource, 'attachment', $index)">
+                                                                    <span class="glyphicon glyphicon-download-alt"></span>
+                                                                </button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                            {{rowData.productCharacteristic.name }}
+                                                    </div>
+                                                </td>
+                                        <td>
+                                            <div>
+                                                <button class="btn btn-default btn-sm" data-component="crn-button" ng-click="datasource.startEditing(rowData)" onclick="$('#modalProductCharacteristicValueGrid').modal('show');" ><i class="fa fa-edit"></i></button>
+                                                <button class="btn btn-default btn-sm" data-component="crn-button" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="table-footer-controls">
+                                    <button class="btn btn-default btn-block btn-clicked" data-component="crn-button" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()" content="{{&quot;template.crud.load_more&quot; | translate}}...">{{"template.crud.load_more" | translate}}...</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- OneToOne  end -->
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+
+<!-- OneToOne modal -->
+<div class="modal fade" id="modalStockItemGrid">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="{{'Home.view.Close' | translate}}"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">StockItem</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group list-group-sm row">
+<!-- else of !model.hasCronappFramework() -->
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+                                        <datasource name="StockGridForUiSelect" entity="api/cronapi/crud/app.entity.Stock" keys="id" rows-per-page="100" lazy="true" enabled="{{Product.editing || Product.inserting}}" ></datasource>
+                                        <div data-component="crn-combobox-dynamic" id="crn-combobox-StockItemGrid.active.stock" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label for="combobox-stock" class="">Estoque</label>
+                                                <ui-select ng-model="StockItemGrid.active.stock" crn-datasource="StockGridForUiSelect" class="crn-select" id="combobox-stock" ng-required="true" ng-disabled="disabled" theme="bootstrap" >
+                                                    <ui-select-match placeholder="Select..." class="">
+                                                        {{$select.selected.name}}
+                                                    </ui-select-match>
+                                                    <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
+                                                        <div class="">
+                                                            {{rowData.name}}
+                                                        </div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+
+                                    <div data-component="crn-textinput"  id="crn-textinput-added_date" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="textinput-added_date">Data de Criação</label>
+                                                <input type="datetime"
+                                                       ng-model="StockItemGrid.active.addedDate" class="form-control"
+                                                       id="textinput-added_date"
+                                                       placeholder="Data de Criação"
+                                                       mask="DD/MM/YYYY HH:mm:ss"
+                                                       mask-placeholder=""
+                                                    ng-required="true">
+                                        </div>
+                                    </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+                                        <datasource name="ItemstatusGridForUiSelect" entity="api/cronapi/crud/app.entity.ItemStatus" keys="id" rows-per-page="100" lazy="true" enabled="{{Product.editing || Product.inserting}}" ></datasource>
+                                        <div data-component="crn-combobox-dynamic" id="crn-combobox-StockItemGrid.active.itemStatus" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label for="combobox-itemStatus" class="">Situação</label>
+                                                <ui-select ng-model="StockItemGrid.active.itemStatus" crn-datasource="ItemstatusGridForUiSelect" class="crn-select" id="combobox-itemStatus" ng-required="false" ng-disabled="disabled" theme="bootstrap" >
+                                                    <ui-select-match placeholder="Select..." class="">
+                                                        {{$select.selected.name}}
+                                                    </ui-select-match>
+                                                    <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
+                                                        <div class="">
+                                                            {{rowData.name}}
+                                                        </div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+
+                                    <div data-component="crn-textinput"  id="crn-textinput-quantity" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="textinput-quantity">Quantidade</label>
+                                                <input type="integer"
+                                                       ng-model="StockItemGrid.active.quantity" class="form-control"
+                                                       id="textinput-quantity"
+                                                       placeholder="Quantidade"
+                                                       mask=""
+                                                       mask-placeholder=""
+                                                    ng-required="true">
+                                        </div>
+                                    </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+                             <!-- end if !model.hasCronappFramework() -->
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-component="crn-button" ng-click="StockItemGrid.post();" onclick="(!StockItemGrid.missingRequiredField()?$('#modalStockItemGrid').modal('hide'):void(0))">{{'Save' | translate}}</button>
+                    <button type="button" class="btn btn-default" data-component="crn-button" data-dismiss="modal">{{'Home.view.Close' | translate}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalProductCharacteristicValueGrid">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="{{'Home.view.Close' | translate}}"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">ProductCharacteristicValue</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group list-group-sm row">
+<!-- else of !model.hasCronappFramework() -->
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+
+                                    <div data-component="crn-textinput"  id="crn-textinput-value" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="textinput-value">Valor</label>
+                                                <input type="number"
+                                                       ng-model="ProductCharacteristicValueGrid.active.value" class="form-control"
+                                                       id="textinput-value"
+                                                       placeholder="Valor"
+                                                       mask=""
+                                                       mask-placeholder=""
+                                                    ng-required="true">
+                                        </div>
+                                    </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+
+                                    <div data-component="crn-textinput"  id="crn-textinput-active" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="textinput-active">Ativo</label>
+                                                <input type="checkbox"
+                                                       ng-model="ProductCharacteristicValueGrid.active.active" class="form-control"
+                                                       id="textinput-active"
+                                                       placeholder="Ativo"
+                                                       mask=""
+                                                       mask-placeholder=""
+                                                    ng-required="true">
+                                        </div>
+                                    </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+
+                                    <div data-component="crn-textinput"  id="crn-textinput-description" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="textinput-description">Descrição</label>
+                                                <input type="text"
+                                                       ng-model="ProductCharacteristicValueGrid.active.description" class="form-control"
+                                                       id="textinput-description"
+                                                       placeholder="Descrição"
+                                                       mask=""
+                                                       mask-placeholder=""
+                                                    ng-required="false">
+                                        </div>
+                                    </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+
+                                    <div data-component="crn-dynamic-file"  id="crn-textinput-attachment" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="textinput-attachment">Anexo</label>
+                                                <div dynamic-file ng-model="ProductCharacteristicValueGrid.active.attachment" max-file-size="5MB" class="dynamic-image-container" ng-required="false">
+                                                  {{"template.crud.clickOrDragAnFile" | translate}}
+                                                </div>
+                                        </div>
+                                    </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+                             <!-- end if !model.hasCronappFramework() -->
+
+<!-- else of !model.hasCronappFramework() -->
+                                        <datasource name="ProductcharacteristicGridForUiSelect" entity="api/cronapi/crud/app.entity.ProductCharacteristic" keys="id" rows-per-page="100" lazy="true" enabled="{{Product.editing || Product.inserting}}" ></datasource>
+                                        <div data-component="crn-combobox-dynamic" id="crn-combobox-ProductCharacteristicValueGrid.active.productCharacteristic" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label for="combobox-productCharacteristic" class="">Característica</label>
+                                                <ui-select ng-model="ProductCharacteristicValueGrid.active.productCharacteristic" crn-datasource="ProductcharacteristicGridForUiSelect" class="crn-select" id="combobox-productCharacteristic" ng-required="false" ng-disabled="disabled" theme="bootstrap" >
+                                                    <ui-select-match placeholder="Select..." class="">
+                                                        {{$select.selected.name}}
+                                                    </ui-select-match>
+                                                    <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
+                                                        <div class="">
+                                                            {{rowData.name}}
+                                                        </div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                             <!-- end if !model.hasCronappFramework() -->
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-component="crn-button" ng-click="ProductCharacteristicValueGrid.post();" onclick="(!ProductCharacteristicValueGrid.missingRequiredField()?$('#modalProductCharacteristicValueGrid').modal('hide'):void(0))">{{'Save' | translate}}</button>
+                    <button type="button" class="btn btn-default" data-component="crn-button" data-dismiss="modal">{{'Home.view.Close' | translate}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- OneToOne modal end-->

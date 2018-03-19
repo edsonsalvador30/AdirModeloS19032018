@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="app" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <non-jta-data-source>java:comp/env/jdbc/main</non-jta-data-source>
+        <class>app.entity.User</class>
+        <class>app.entity.Role</class>
+        <class>app.entity.PurchaseOrder</class>
+        <class>app.entity.PurchaseProductStatus</class>
+        <class>app.entity.PurchaseOrderStatus</class>
+        <class>app.entity.ProductPurchaseOrder</class>
+        <class>app.entity.Product</class>
+        <class>app.entity.ProductStatus</class>
+        <class>app.entity.StockMovement</class>
+        <class>app.entity.StockItem</class>
+        <class>app.entity.ProductCategory</class>
+        <class>app.entity.Stock</class>
+        <class>app.entity.Brand</class>
+        <class>app.entity.ProductCharacteristic</class>
+        <class>app.entity.StockMovementType</class>
+        <class>app.entity.ItemStatus</class>
+        <class>app.entity.ProductCharacteristicValue</class>
+        <properties>
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+        </properties>
+    </persistence-unit>
+</persistence>
