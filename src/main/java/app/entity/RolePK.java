@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.*;
 public class RolePK implements Serializable {
 
   /**
-  * @generated
+  * @generated Edson
   */
   private static final long serialVersionUID = 1L;
   
